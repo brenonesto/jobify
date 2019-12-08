@@ -8,6 +8,8 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
+const port = process.env.PORT || 3000
+
 app.get('/', async(request, response) => {
     const db = await dbConnection
     const categoriasDb = await db.all('select * from categorias;')
@@ -129,7 +131,7 @@ const init = async() => {
 }
 init()
 
-app.listen(3000, (err) => {
+app.listen(port, (err) => {
     if(err) {
         console.log('Não foi possível iniciar o servidor do Jobify.')
     } else {
