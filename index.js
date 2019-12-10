@@ -5,6 +5,14 @@ const sqlite = require('sqlite')
 const path = require('path')
 const dbConnection = sqlite.open(path.resolve(__dirname, 'banco.sqlite'), { Promise })
 
+app.use('/admin', (req, res, next) => {
+    if(req.hostname === 'localhost') {
+        next()
+    } else {
+        res.send('Not Allowed')
+    }
+})
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: true }))
